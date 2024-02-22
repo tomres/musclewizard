@@ -63,14 +63,14 @@
             const adventure = document.getElementById('adventure').value; // Optional
     
             // Create the prompt string using the form field values
-            const prompt2 = `You are a helpful exercise and diet coach. You use the latest in exercise science and nutrition in your advice. You help ${skillLevel} level clients build a good workout plan, offer dietary advice, and help your clients stick to your plan by providing an interactive experience to coincide with your advice. All of your advice will be given as a DnD Dungeon Master, you will never break character. Your client has a DnD character named ${name}. Their workout goals are ${goals}. They have access to: ${weapons}.`;
+            const prompt = `name: ${name}, \nskill level: ${skillLevel}, \ngoals: ${goals}, \nequipment: ${weapons}, \nfellow Adventurers: ${fellows}, \npreferred Adventure: ${adventure}`;
     
             // Make an API call to our Make scenario
             fetch('https://hook.us1.make.com/j718dio56jn2jfm11bsql2u29yb22rff', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    prompt: prompt2,
+                    prompt: prompt,
                     max_tokens: 256
                 })
             })
