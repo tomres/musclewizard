@@ -40,6 +40,7 @@
                 </form>
             </div>
             <div class="text-block">
+                <p id="loadingMessage" style="display: none;">Building your adventure...</p>
                 <p id="adventureDetails">Your adventure details will appear here upon submission...</p>
             </div>
         </div>
@@ -61,9 +62,12 @@
             const weapons = document.getElementById('weapons').value;
             const fellows = document.getElementById('fellows').value; // Optional
             const adventure = document.getElementById('adventure').value; // Optional
+            const loadingMessage = document.getElementById('loadingMessage');
 
             // Create the prompt string using the form field values
             const message = `name: ${name}, \nskill level: ${skillLevel}, \ngoals: ${goals}, \nequipment: ${weapons}, \nfellow Adventurers: ${fellows}, \npreferred Adventure: ${adventure}`;
+            
+            loadingMessage.style.display = "block";
 
             // Make an API call to our Make scenario
             fetch('https://hook.us1.make.com/j718dio56jn2jfm11bsql2u29yb22rff', {
@@ -76,8 +80,10 @@
                 // Then get the API response object, covert it to text and display it
                 .then(response => response.text())
                 .then(result => {
-                    resultText.value = result;
+                    loadingMessage.style.display = "none";
+                    resultText.innerText = result;
                 });
+                
         });
     </script>
 </body>

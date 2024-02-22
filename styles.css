@@ -7,55 +7,74 @@ body, html {
     align-items: center;
     justify-content: center;
     font-family: Arial, sans-serif;
-    text-align: left; /* Center all text by default */
+    text-align: left;
 }
 
 #majesticWizard {
-    font-size: 48px; /* or more, adjust as needed */
+    font-size: 48px;
+    margin-bottom: 20px; /* Give some space below the title */
 }
 
 main {
-    width: 80%; /* Adjust according to your preference */
+    width: 90%; /* Adjust according to your preference; increased for potential padding */
+    max-width: 1200px; /* Optional: limit max width of content */
+    padding: 20px; /* Add padding around the main content */
 }
 
 .content {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
+    justify-content: space-between; /* Adjust alignment as needed */
+    gap: 40px; /* Increase gap for better spacing */
 }
 
 .form-wrapper, .text-block {
-    text-align: left; /* Ensure text is justified left */
-    flex-basis: calc(50% - 10px);
-    max-width: calc(50% - 10px);
+    text-align: left;
+    flex-basis: calc(50% - 20px); /* Adjusted for gap */
+    max-width: calc(50% - 20px);
+    padding: 20px; /* Adding padding for internal spacing */
+    box-shadow: 0 0 5px rgba(0,0,0,0.2); /* Optional: add shadow for better distinction */
 }
 
-/* Make labels bold */
+/* Style adjustments for components */
 form > label {
     display: block;
-    font-weight: bold; /* Bold labels */
-    margin: 10px 0 5px;
+    font-weight: bold;
+    margin-bottom: 8px; /* Adjust spacing */
 }
 
-/* Style inputs, selects and textareas */
-form > input, form > select, form > textarea {
+form > input, form > select, form > textarea, button[type="submit"] {
     width: 100%;
-    padding: 8px;
-    border-radius: 8px; /* Rounded corners */
+    padding: 12px;
+    margin-top: 10px; /* Add margin top for spacing */
+    border-radius: 8px;
+    border: 1px solid #ccc; /* Slightly style borders */
 }
 
-button[type="submit"] {
-    margin-top: 20px;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 8px; /* Rounded corners for button */
+.text-block {
+    overflow-y: auto;
+    max-height: 500px;
+    /* Padding already set above */
 }
 
 @media (max-width: 768px) {
+    .content {
+        justify-content: center; /* Center the stacks on smaller screens */
+    }
+    
     .form-wrapper, .text-block {
         flex-basis: 100%;
         max-width: 100%;
+        /* Resetting or maintaining padding */
     }
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+#loadingMessage {
+    animation: pulse 2s infinite;
 }
