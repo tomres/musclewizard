@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muscle Wizard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main>
+        <h1>Muscle Wizard</h1>
+        <div class="content">
+            <div class="form">
+                <form>
+                    <label for="name">Adventurer's Name</label>
+                    <input type="text" id="name" name="name" required>
+                    
+                    <label for="skill">Skill level</label>
+                    <select id="skill" name="skill" required>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                    
+                    <label for="goals">Goals</label>
+                    <textarea id="goals" name="goals" required></textarea>
+                    
+                    <label for="weapons">What weapons are in your arsenal?</label>
+                    <textarea id="weapons" name="weapons" required></textarea>
+                    
+                    <label for="fellows">Who are your fellow adventurers?</label>
+                    <textarea id="fellows" name="fellows"></textarea>
+                    
+                    <label for="adventure">Choose your adventure</label>
+                    <textarea id="adventure" name="adventure"></textarea>
+                    
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+            <div class="text-block">
+                <p>Your adventure details will appear here upon submission...</p>
+                <!-- Here you can add more descriptive text or functionality to update this section based on the form submissions if needed -->
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Select the form element and the loader elements 
+        const form = document.querySelector('#wf-form-generator');
+        const resultWrap = document.querySelector('#statement-component');
+        const resultLoader = document.querySelector('#statement-loader');
+        const resultText = document.querySelector('#statement-text');
+        
+        // Add a submit event listener to the form
+        form.addEventListener('submit', (event) => {
+            // Prevent the default form submission behavior
+            event.preventDefault();
+            
+            // Show the div that will contain the response and scroll to it
+            resultWrap.style.display = "block";
+            resultLoader.style.display = "flex";
+            resultWrap.scrollIntoView({behavior: "smooth"});
+            
+            // Get the values of the form fields
+            const name = document.getElementById('name').value;
+            const location = document.getElementById('location').value;
+            const field = document.getElementById('field').value;
+            const tone = document.getElementById('tone').value;
+            const keywords = document.getElementById('keywords').value;
+            
+            // Create the prompt string using the form field values
+            const prompt = `Generate an artist statement of around 100 words for an artist named ${name}, who is based in ${location}, and works mostly with ${field}. The statement should sound ${tone}, and include the following keywords : ${keywords}.`;
+            
+                // Make an API call to our Make cenario
+            fetch('https://hook.us1.make.com/efvtmnibm3kevrgbsfuynsrkepqv9q9s', {
+                method: 'POST', 
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    prompt: prompt, 
+                  max_tokens: 256
+                })
+            })
+            // Then get the API response object, covert it to text and display it
+            .then(response => response.text())
+            .then(result => {
+                resultText.value = result;
+                resultLoader.style.display = "none";
+            });   
+        });
+        </script>
+
+</body>
+</html>
