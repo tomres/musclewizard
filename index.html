@@ -8,9 +8,9 @@
 </head>
 <body>
     <main>
-        <h1>Muscle Wizard</h1>
+        <h1 id="majesticWizard">Muscle Wizard</h1>
         <div class="content">
-            <div class="form">
+            <div class="form-wrapper">
                 <form>
                     <label for="name">Adventurer's Name</label>
                     <input type="text" id="name" name="name" required>
@@ -42,7 +42,6 @@
             </div>
         </div>
     </main>
-
     <script>
         // Select the form element and the elements for displaying the results
         const form = document.querySelector('form');
@@ -62,7 +61,7 @@
             const fellows = document.getElementById('fellows').value; // Optional
             const adventure = document.getElementById('adventure').value; // Optional
             const resultText = document.querySelector('#adventureDetails');
-
+    
             // Creat a response text based on the form field values
             const adventurerDetails = `Adventurer's Name: ${name} \nSkill Level: ${skillLevel} \nGoals: ${goals} \nWeapons: ${weapons}`;
         
@@ -73,6 +72,8 @@
             resultText.innerText = adventurerDetails + optionalDetails;
         });
         </script>
-
 </body>
 </html>
+
+
+

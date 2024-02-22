@@ -7,10 +7,15 @@ body, html {
     align-items: center;
     justify-content: center;
     font-family: Arial, sans-serif;
+    text-align: center; /* Center all text by default */
+}
+
+#majesticWizard {
+    font-size: 48px; /* or more, adjust as needed */
 }
 
 main {
-    text-align: center;
+    width: 80%; /* Adjust according to your preference */
 }
 
 .content {
@@ -21,30 +26,36 @@ main {
     margin-top: 20px;
 }
 
-.form, .text-block {
+.form-wrapper, .text-block {
+    text-align: left; /* Ensure text is justified left */
     flex-basis: calc(50% - 10px);
     max-width: calc(50% - 10px);
 }
 
-@media (max-width: 768px) {
-    .form, .text-block {
-        flex-basis: 100%;
-        max-width: 100%;
-    }
-}
-
+/* Make labels bold */
 form > label {
     display: block;
+    font-weight: bold; /* Bold labels */
     margin: 10px 0 5px;
 }
 
+/* Style inputs, selects and textareas */
 form > input, form > select, form > textarea {
     width: 100%;
     padding: 8px;
+    border-radius: 8px; /* Rounded corners */
 }
 
 button[type="submit"] {
     margin-top: 20px;
     padding: 10px 20px;
     cursor: pointer;
+    border-radius: 8px; /* Rounded corners for button */
+}
+
+@media (max-width: 768px) {
+    .form-wrapper, .text-block {
+        flex-basis: 100%;
+        max-width: 100%;
+    }
 }
