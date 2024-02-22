@@ -48,12 +48,12 @@
         // Select the form element and the elements for displaying the results
         const form = document.querySelector('form');
         const resultText = document.querySelector('#adventureDetails');
-        
+
         // Add a submit event listener to the form
         form.addEventListener('submit', (event) => {
             // Prevent the default form submission behavior
             event.preventDefault();
-    
+
             // Get the values of the form fields
             const name = document.getElementById('name').value;
             const skillLevel = document.getElementById('skill').value;
@@ -61,27 +61,23 @@
             const weapons = document.getElementById('weapons').value;
             const fellows = document.getElementById('fellows').value; // Optional
             const adventure = document.getElementById('adventure').value; // Optional
-    
+
             // Create the prompt string using the form field values
             const prompt = `name: ${name}, \nskill level: ${skillLevel}, \ngoals: ${goals}, \nequipment: ${weapons}, \nfellow Adventurers: ${fellows}, \npreferred Adventure: ${adventure}`;
-    
+
             // Make an API call to our Make scenario
             fetch('https://hook.us1.make.com/j718dio56jn2jfm11bsql2u29yb22rff', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    prompt: prompt,
-                    max_tokens: 256
+                    content: prompt,
                 })
             })
-                // Assuming the response is text; adjust if needed
+                // Then get the API response object, covert it to text and display it
                 .then(response => response.text())
                 .then(result => {
-                    resultText.innerText = result;
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    resultText.innerText = 'There was an error processing your request. Please try again.';
+                    resultText.value = result;
+                    resultLoader.style.display = "none";
                 });
         });
     </script>
