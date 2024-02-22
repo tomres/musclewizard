@@ -62,6 +62,10 @@
             const adventure = document.getElementById('adventure').value; // Optional
             const resultText = document.querySelector('#adventureDetails');
     
+            // Create the prompt string using the form field values
+            const prompt = `Generate an artist statement of around 100 words for an artist named ${name}, who is based in ${location}, and works mostly with ${field}. The statement should sound ${tone}, and include the following keywords : ${keywords}.`;
+            const prompt2 = 'You are a helpful exercise and diet coach. You use the latest in exercise science and nutrition in your advice. You help ${skillLevel} level clients build a good workout plan, offer dietary advice, and help your clients stick to your plan by providing an interactive experience to coincide with your advice. All of your advice will be given as a DnD Dungeon Master, you will never break character. Your client has a DnD character named ${name}. Their workout goals are ${goals}. They have access to: ${weapons}. '
+
             // Creat a response text based on the form field values
             const adventurerDetails = `Adventurer's Name: ${name} \nSkill Level: ${skillLevel} \nGoals: ${goals} \nWeapons: ${weapons}`;
         
@@ -71,6 +75,17 @@
             // Displaying the compiled adventurer details
             resultText.innerText = adventurerDetails + optionalDetails;
         });
+
+		// Make an API call to our Make cenario
+        fetch('https://hook.us1.make.com/j718dio56jn2jfm11bsql2u29yb22rff', {
+        method: 'POST', 
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+        	prompt: prompt2, 
+          max_tokens: 256
+        })
+        })
+
         </script>
 </body>
 </html>
