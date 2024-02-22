@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Muscle Wizard</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <main>
         <h1 id="majesticWizard">Muscle Wizard</h1>
@@ -14,26 +16,26 @@
                 <form>
                     <label for="name">Adventurer's Name</label>
                     <input type="text" id="name" name="name" required>
-                    
+
                     <label for="skill">Skill level</label>
                     <select id="skill" name="skill" required>
                         <option value="beginner">Beginner</option>
                         <option value="intermediate">Intermediate</option>
                         <option value="advanced">Advanced</option>
                     </select>
-                    
+
                     <label for="goals">Goals</label>
                     <textarea id="goals" name="goals" required></textarea>
-                    
+
                     <label for="weapons">What weapons are in your arsenal?</label>
                     <textarea id="weapons" name="weapons" required></textarea>
-                    
+
                     <label for="fellows">Who are your fellow adventurers?</label>
                     <textarea id="fellows" name="fellows"></textarea>
-                    
+
                     <label for="adventure">Choose your adventure</label>
                     <textarea id="adventure" name="adventure"></textarea>
-                    
+
                     <button type="submit">Submit</button>
                 </form>
             </div>
@@ -45,14 +47,13 @@
     <script>
         // Select the form element and the elements for displaying the results
         const form = document.querySelector('form');
-        const resultWrap = document.querySelector('.text-block');
-        const resultText = resultWrap.querySelector('p');
+        const resultText = document.querySelector('#adventureDetails');
         
         // Add a submit event listener to the form
         form.addEventListener('submit', (event) => {
             // Prevent the default form submission behavior
             event.preventDefault();
-            
+    
             // Get the values of the form fields
             const name = document.getElementById('name').value;
             const skillLevel = document.getElementById('skill').value;
@@ -60,44 +61,30 @@
             const weapons = document.getElementById('weapons').value;
             const fellows = document.getElementById('fellows').value; // Optional
             const adventure = document.getElementById('adventure').value; // Optional
-            const resultText = document.querySelector('#adventureDetails');
     
             // Create the prompt string using the form field values
-            const prompt = `Generate an artist statement of around 100 words for an artist named ${name}, who is based in ${location}, and works mostly with ${field}. The statement should sound ${tone}, and include the following keywords : ${keywords}.`;
-            const prompt2 = 'You are a helpful exercise and diet coach. You use the latest in exercise science and nutrition in your advice. You help ${skillLevel} level clients build a good workout plan, offer dietary advice, and help your clients stick to your plan by providing an interactive experience to coincide with your advice. All of your advice will be given as a DnD Dungeon Master, you will never break character. Your client has a DnD character named ${name}. Their workout goals are ${goals}. They have access to: ${weapons}. '
-
-            // Creat a response text based on the form field values
-            const adventurerDetails = `Adventurer's Name: ${name} \nSkill Level: ${skillLevel} \nGoals: ${goals} \nWeapons: ${weapons}`;
-        
-            // Optional details only added if provided
-            const optionalDetails = `${fellows ? "\nFellow Adventurers: " + fellows : ""}${adventure ? "\nAdventure Choice: " + adventure : ""}`;
-            
-            // Displaying the compiled adventurer details
-            //resultText.innerText = adventurerDetails + optionalDetails;
-
-            // Make an API call to our Make cenario
+            const prompt2 = `You are a helpful exercise and diet coach. You use the latest in exercise science and nutrition in your advice. You help ${skillLevel} level clients build a good workout plan, offer dietary advice, and help your clients stick to your plan by providing an interactive experience to coincide with your advice. All of your advice will be given as a DnD Dungeon Master, you will never break character. Your client has a DnD character named ${name}. Their workout goals are ${goals}. They have access to: ${weapons}.`;
+    
+            // Make an API call to our Make scenario
             fetch('https://hook.us1.make.com/j718dio56jn2jfm11bsql2u29yb22rff', {
-            method: 'POST', 
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-                prompt: prompt2, 
-            max_tokens: 256
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    prompt: prompt2,
+                    max_tokens: 256
+                })
             })
-            })
-                // Then get the API response object, covert it to text and display it
-    .then(response => response.text())
-    .then(result => {
-    	resultText.innerText = result;
-    	resultLoader.style.display = "none";
-    });   
-
+                // Assuming the response is text; adjust if needed
+                .then(response => response.text())
+                .then(result => {
+                    resultText.innerText = result;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    resultText.innerText = 'There was an error processing your request. Please try again.';
+                });
         });
-
-
-
-        </script>
+    </script>
 </body>
+
 </html>
-
-
-
