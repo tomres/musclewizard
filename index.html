@@ -74,17 +74,20 @@
             
             // Displaying the compiled adventurer details
             resultText.innerText = adventurerDetails + optionalDetails;
+
+            // Make an API call to our Make cenario
+            fetch('https://hook.us1.make.com/j718dio56jn2jfm11bsql2u29yb22rff', {
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                prompt: prompt2, 
+            max_tokens: 256
+            })
+            })
+
         });
 
-		// Make an API call to our Make cenario
-        fetch('https://hook.us1.make.com/j718dio56jn2jfm11bsql2u29yb22rff', {
-        method: 'POST', 
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-        	prompt: prompt2, 
-          max_tokens: 256
-        })
-        })
+
 
         </script>
 </body>
