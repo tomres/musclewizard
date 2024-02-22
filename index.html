@@ -38,8 +38,7 @@
                 </form>
             </div>
             <div class="text-block">
-                <p>Your adventure details will appear here upon submission...</p>
-                <!-- Here you can add more descriptive text or functionality to update this section based on the form submissions if needed -->
+                <p id="adventureDetails">Your adventure details will appear here upon submission...</p>
             </div>
         </div>
     </main>
@@ -62,7 +61,8 @@
             const weapons = document.getElementById('weapons').value;
             const fellows = document.getElementById('fellows').value; // Optional
             const adventure = document.getElementById('adventure').value; // Optional
-            
+            const resultText = document.querySelector('#adventureDetails');
+
             // Creat a response text based on the form field values
             const adventurerDetails = `Adventurer's Name: ${name} \nSkill Level: ${skillLevel} \nGoals: ${goals} \nWeapons: ${weapons}`;
         
