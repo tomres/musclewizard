@@ -63,21 +63,20 @@
             const adventure = document.getElementById('adventure').value; // Optional
 
             // Create the prompt string using the form field values
-            const prompt = `name: ${name}, \nskill level: ${skillLevel}, \ngoals: ${goals}, \nequipment: ${weapons}, \nfellow Adventurers: ${fellows}, \npreferred Adventure: ${adventure}`;
+            const message = `name: ${name}, \nskill level: ${skillLevel}, \ngoals: ${goals}, \nequipment: ${weapons}, \nfellow Adventurers: ${fellows}, \npreferred Adventure: ${adventure}`;
 
             // Make an API call to our Make scenario
             fetch('https://hook.us1.make.com/j718dio56jn2jfm11bsql2u29yb22rff', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    content: prompt,
+                    message: message,
                 })
             })
                 // Then get the API response object, covert it to text and display it
                 .then(response => response.text())
                 .then(result => {
                     resultText.value = result;
-                    resultLoader.style.display = "none";
                 });
         });
     </script>
