@@ -45,47 +45,32 @@
     </main>
 
     <script>
-        // Select the form element and the loader elements 
-        const form = document.querySelector('#wf-form-generator');
-        const resultWrap = document.querySelector('#statement-component');
-        const resultLoader = document.querySelector('#statement-loader');
-        const resultText = document.querySelector('#statement-text');
+        // Select the form element and the elements for displaying the results
+        const form = document.querySelector('form');
+        const resultWrap = document.querySelector('.text-block');
+        const resultText = resultWrap.querySelector('p');
         
         // Add a submit event listener to the form
         form.addEventListener('submit', (event) => {
             // Prevent the default form submission behavior
             event.preventDefault();
             
-            // Show the div that will contain the response and scroll to it
-            resultWrap.style.display = "block";
-            resultLoader.style.display = "flex";
-            resultWrap.scrollIntoView({behavior: "smooth"});
-            
             // Get the values of the form fields
             const name = document.getElementById('name').value;
-            const location = document.getElementById('location').value;
-            const field = document.getElementById('field').value;
-            const tone = document.getElementById('tone').value;
-            const keywords = document.getElementById('keywords').value;
+            const skillLevel = document.getElementById('skill').value;
+            const goals = document.getElementById('goals').value;
+            const weapons = document.getElementById('weapons').value;
+            const fellows = document.getElementById('fellows').value; // Optional
+            const adventure = document.getElementById('adventure').value; // Optional
             
-            // Create the prompt string using the form field values
-            const prompt = `Generate an artist statement of around 100 words for an artist named ${name}, who is based in ${location}, and works mostly with ${field}. The statement should sound ${tone}, and include the following keywords : ${keywords}.`;
+            // Creat a response text based on the form field values
+            const adventurerDetails = `Adventurer's Name: ${name} \nSkill Level: ${skillLevel} \nGoals: ${goals} \nWeapons: ${weapons}`;
+        
+            // Optional details only added if provided
+            const optionalDetails = `${fellows ? "\nFellow Adventurers: " + fellows : ""}${adventure ? "\nAdventure Choice: " + adventure : ""}`;
             
-                // Make an API call to our Make cenario
-            fetch('https://hook.us1.make.com/efvtmnibm3kevrgbsfuynsrkepqv9q9s', {
-                method: 'POST', 
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    prompt: prompt, 
-                  max_tokens: 256
-                })
-            })
-            // Then get the API response object, covert it to text and display it
-            .then(response => response.text())
-            .then(result => {
-                resultText.value = result;
-                resultLoader.style.display = "none";
-            });   
+            // Displaying the compiled adventurer details
+            resultText.innerText = adventurerDetails + optionalDetails;
         });
         </script>
 
