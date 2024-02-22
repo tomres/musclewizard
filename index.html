@@ -73,7 +73,7 @@
             const optionalDetails = `${fellows ? "\nFellow Adventurers: " + fellows : ""}${adventure ? "\nAdventure Choice: " + adventure : ""}`;
             
             // Displaying the compiled adventurer details
-            resultText.innerText = adventurerDetails + optionalDetails;
+            //resultText.innerText = adventurerDetails + optionalDetails;
 
             // Make an API call to our Make cenario
             fetch('https://hook.us1.make.com/j718dio56jn2jfm11bsql2u29yb22rff', {
@@ -84,6 +84,12 @@
             max_tokens: 256
             })
             })
+                // Then get the API response object, covert it to text and display it
+    .then(response => response.text())
+    .then(result => {
+    	resultText.innerText = result;
+    	resultLoader.style.display = "none";
+    });   
 
         });
 
